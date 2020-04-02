@@ -15,10 +15,16 @@ var COLORS = {
   club: 'black',
   heart: 'red',
   spade: 'black',
-  one: 'white',
+  one: 'grey',
   five: 'red',
   ten: 'green',
-  twentyfive: 'grey',
+  twentyfive: 'black',
+};
+var CHIP_FONT_COLORS = {
+  one: 'black',
+  five: 'black',
+  ten: 'black',
+  twentyfive: 'white',
 };
 var CHIP_DENOMS = ['one', 'five', 'ten', 'twentyfive'];
 var CHIP_NUMBER = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
@@ -138,6 +144,8 @@ function renderCards() {
           elt.innerHTML =
             '<div style="background-color:' +
             COLORS[cards[i].suit] +
+            ';color:' +
+            CHIP_FONT_COLORS[cards[i].suit] +
             ';width:100%;height:100%;border-radius:20px">' +
             SYMBOLS[cards[i].suit] +
             '</div>';
