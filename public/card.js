@@ -32,6 +32,7 @@ var CHIP_AMOUNT_MAP = { one: 1, five: 5, ten: 10, twentyfive: 25 };
 var cards = [];
 var CARD_WIDTH = 50;
 var CARD_HEIGHT = 70;
+const CHIP_DIAMETER = 36;
 var WIDTH = 800;
 var HEIGHT = 800;
 var DESK_ROT = 0;
