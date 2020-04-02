@@ -56,12 +56,12 @@ function main() {
   socket.on('server-update', function(data) {
     serverData = data;
     var newhtml = displayData(serverData);
-    document.getElementById('room-name').innerHTML =
-      'Room <b><b>' + serverData.name + '</b></b>';
+    // document.getElementById('room-name').innerHTML =
+    //   'Room <b><b>' + serverData.name + '</b></b>';
     var room_sp = "<span class='room-item' onmousedown='roomBtn(this)'>";
 
     document.getElementById('room-list').innerHTML =
-      '<img src="https://res.cloudinary.com/m15y/image/upload/v1585811683/su/TLP6CEXSQ/yede5kwhhwoemy4jnf5k.png" width="200"/>';
+      '<img src="/logo.png" width="190"/>';
 
     if (data.messages.length != old_msg_cnt) {
       document.getElementById('msg-disp').innerHTML = newhtml;
