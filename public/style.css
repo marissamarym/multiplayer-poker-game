@@ -37,7 +37,7 @@ body {
   height: 800px;
   position: absolute;
   cursor: crosshair;
-  left: 0px;
+  left: 100px;
   top: 0px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
   border-radius: 6px 0px 0px 6px;
@@ -140,12 +140,12 @@ body {
 #panel {
   background-color: rgb(230, 230, 230);
   position: absolute;
-  left: 800px;
+  left: 900px;
   height: 780px;
   top: 0px;
   padding: 10px;
   font-family: 'Open Sans', sans-serif;
-  width: 400px;
+  width: 200px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
   border-radius: 0px 6px 6px 0px;
 }
