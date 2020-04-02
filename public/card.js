@@ -15,15 +15,15 @@ var COLORS = {
   club: 'black',
   heart: 'red',
   spade: 'black',
-  one: 'grey',
-  five: 'red',
-  ten: 'green',
+  one: '#cfcfcf',
+  five: '#770000',
+  ten: '#013220',
   twentyfive: 'black',
 };
 var CHIP_FONT_COLORS = {
   one: 'black',
-  five: 'black',
-  ten: 'black',
+  five: 'white',
+  ten: 'white',
   twentyfive: 'white',
 };
 var CHIP_DENOMS = ['one', 'five', 'ten', 'twentyfive'];
