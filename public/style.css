@@ -160,18 +160,18 @@ body {
 #msg-disp {
   margin-top: 5px;
   background-color: rgb(220, 220, 220);
-  height: 400px;
+  height: 340px;
   overflow: scroll;
 }
 #msg-inp {
-  width: 100%;
+  width: 90%;
 }
 
 #msg-ctrl {
   width: 100%;
 }
 #msg-btn {
-  width: 80%;
+  width: 100%;
 }
 .sub-panel-lbl {
   font-size: 18px;

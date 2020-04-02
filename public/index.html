@@ -1,70 +1,81 @@
-<!DOCTYPE html>    
+<!DOCTYPE html>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
 <script src="/card.js"></script>
 <script src="/client.js"></script>
 
-
 <html lang="en">
   <head>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
   <body>
     <div id="title">
       <div style="font-size:20px">card-table.glitch.me</div>
       <div style="font-size:14px"><i>- A deck of cards on a table</i></div>
     </div>
-    
-    <div id="main">
-      
 
-      <div id="desk">    
+    <div id="main">
+      <div id="desk">
         <div id="selbox"></div>
-        
+
         <div id="areabox-0" class="areabox"></div>
         <div id="areabox-1" class="areabox"></div>
         <div id="areabox-2" class="areabox"></div>
         <div id="areabox-3" class="areabox"></div>
-        <div id="areabox-front" class="areabox"><div style="padding:5px;font-size:18px;"><i class="material-icons">remove_red_eye</i></div></div>
-        <div id="areabox-back"  class="areabox"><div style="padding:5px;font-size:18px;"><i class="material-icons">format_align_justify</i></div></div>
+        <div id="areabox-front" class="areabox">
+          <div style="padding:5px;font-size:18px;">
+            <i class="material-icons">remove_red_eye</i>
+          </div>
+        </div>
+        <div id="areabox-back" class="areabox">
+          <div style="padding:5px;font-size:18px;">
+            <i class="material-icons">format_align_justify</i>
+          </div>
+        </div>
       </div>
 
       <div id="panel">
         <div class="sub-panel">
           <div class="sub-panel-lbl" id="room-name"></div>
           <div id="room-list"></div>
-          <div style="font-size:10px;">or put <code>?room=...</code> after the URL to enter/create a room</div>
-        </div>
-          
-        <div class="sub-panel">
-          <table style="width:100%"><tr><td><div class="sub-panel-lbl">Player</div></td><td><input id="name-inp" style="width:100%"/></td>
-            <td style="width:80px; text-align:center;"><button id="name-btn">Rename</button></td></tr></table>
-          
-            
-          <div id="name-id"></div>
         </div>
 
+        <div class="sub-panel">
+          <div class="sub-panel-lbl">Your player name</div>
+          <table style="width:100%">
+            <tr>
+              <td><input id="name-inp" style="width:100%" /></td>
+              <td style="width:80px; text-align:center;">
+                <button id="name-btn">Rename</button>
+              </td>
+            </tr>
+          </table>
+
+          <div id="name-id"></div>
+        </div>
 
         <div class="sub-panel">
           <div class="sub-panel-lbl">Messages</div>
           <div id="msg-disp"></div>
 
-
-          <table id="msg-ctrl"><tr>
-
-            <td><input id="msg-inp"/></td>
-            <td style="text-align:center;"><button id="msg-btn">Send</button></td>
-          </tr></table>
-
+          <table id="msg-ctrl">
+            <tr>
+              <td><input id="msg-inp" /></td>
+              <td style="text-align:center;">
+                <button id="msg-btn">Send</button>
+              </td>
+            </tr>
+          </table>
         </div>
-        
+
         <div class="sub-panel">
           <button id="shuffle-btn">Shuffle</button>
         </div>
       </div>
     </div>
-
-    
   </body>
 </html>

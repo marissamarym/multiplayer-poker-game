@@ -3,6 +3,7 @@
 var serverData = {};
 var socket = io();
 var old_msg_cnt = 0;
+const rtf1 = new Intl.RelativeTimeFormat('en', { style: 'narrow' });
 
 function displayData(data) {
   if (!data.messages) {
@@ -11,18 +12,16 @@ function displayData(data) {
   var result = '';
   for (var i = 0; i < data.messages.length; i++) {
     var player = data.players[data.messages[i].id];
-    var name = player != undefined ? player.name : data.messages[i].id;
+    var name = data.messages[i].id;
+    if (player && player.name) {
+      name = player.name;
+    }
     var isme = socket.id == data.messages[i].id ? ' (You) ' : '';
-    var time = new Date(data.messages[i].timestamp)
-      .toTimeString()
-      .split(' ')[0];
     result +=
       "<div class='msg-item'><font size='1'><b>" +
       name +
       isme +
-      '</b> [' +
-      time +
-      ']:</font><br>';
+      '</b></font><br>';
     result += '' + data.messages[i].text + '</font></div>';
   }
   result += '';
@@ -56,17 +55,13 @@ function main() {
 
   socket.on('server-update', function(data) {
     serverData = data;
-    //document.getElementById("debug").innerHTML = `<font size="0.1">`+JSON.stringify(serverData)+`</font>`;
     var newhtml = displayData(serverData);
     document.getElementById('room-name').innerHTML =
-      'Room <b><i>' + serverData.name + '</i></b>';
+      'Room <b><b>' + serverData.name + '</b></b>';
     var room_sp = "<span class='room-item' onmousedown='roomBtn(this)'>";
+
     document.getElementById('room-list').innerHTML =
-      'goto' +
-      room_sp +
-      serverData.room_list.join('</span>' + room_sp) +
-      '</span>';
-    // console.log(newhtml)
+      '<img src="https://res.cloudinary.com/m15y/image/upload/v1585811683/su/TLP6CEXSQ/yede5kwhhwoemy4jnf5k.png" width="200"/>';
 
     if (data.messages.length != old_msg_cnt) {
       document.getElementById('msg-disp').innerHTML = newhtml;
@@ -77,8 +72,6 @@ function main() {
     }
     window.cardResolve(serverData.cards);
     window.DESK_ROT = serverData.players[socket.id].idx;
-    // document.getElementById('name-inp').value = serverData.players[socket.id].name;
-    document.getElementById('name-id').innerHTML = 'id=' + socket.id;
 
     for (var i = 0; i < 4; i++) {
       var ab = document.getElementById('areabox-' + i);
@@ -97,18 +90,10 @@ function main() {
         `</div>`;
     }
   });
-  //   document.getElementById('room-inp').value = "lobby";
 
   try {
     document.getElementById('name-inp').value = socket.id.slice(0, 6);
   } catch (e) {}
-
-  //   document.getElementById("room-btn").onclick = function(){
-  //     socket.emit('client-update',{
-  //       op:"room",id:socket.id,
-  //       text:document.getElementById("room-inp").value,
-  //     });
-  //   }
 
   document.getElementById('name-btn').onclick = function() {
     socket.emit('client-update', {
@@ -118,11 +103,8 @@ function main() {
     });
   };
   document.getElementById('msg-inp').addEventListener('keyup', function(event) {
-    // Cancel the default action, if needed
     event.preventDefault();
-    // Number 13 is the "Enter" key on the keyboard
     if (event.keyCode === 13) {
-      // Trigger the button element with a click
       document.getElementById('msg-btn').click();
     }
   });
@@ -134,6 +116,7 @@ function main() {
       text: document.getElementById('msg-inp').value,
       timestamp: new Date().getTime(),
     });
+    document.getElementById('msg-inp').value = '';
   };
 
   document.getElementById('shuffle-btn').onclick = function() {
@@ -160,9 +143,6 @@ window.onload = function() {
     var maindiv = document.getElementById('main');
     var dh = Math.max(window.HEIGHT, window.innerHeight);
     document.body.style.height = dh + 'px';
-    // var scale = 0.9*window.innerHeight/window.HEIGHT;
-    // var scale_str = "scale("+scale+")";
-    // maindiv.style.transform = scale_str;
     maindiv.style.left =
       window.innerWidth / 2 - (window.WIDTH + 400) / 2 + 'px';
     maindiv.style.top = dh / 2 - window.HEIGHT / 2 + 'px';

@@ -151,10 +151,9 @@ console.log('server running');
 var io = require('socket.io')(server);
 
 var welcome_messages = [
-  'welcome to marissamarym-multiplayer-poker-game (fork of card-table.glitch.me)',
-  'where multiple people can mess around with the same deck of cards online',
-  'click and drag on a card to move it, or drag a selection to move multiple cards',
-  'share the URL with your friends to invite them to your room',
+  'Welcome to The Poker Night App!',
+  'Click and drag on a card to move it, or drag a selection to move multiple cards.',
+  'Have fun!',
 ];
 
 var rooms = { lobby: newRoom('lobby') };
@@ -216,12 +215,6 @@ function updateServerData(data) {
     }
   } else if (data.op == 'shfl') {
     shuffleDeck(room.cards);
-    // room.messages.push({
-    //   id: data.id,
-    //   timestamp: data.timestamp,
-    //   name: room.players[data.id].name,
-    //   text: '[SHUFFLE]',
-    // });
   }
 }
 
