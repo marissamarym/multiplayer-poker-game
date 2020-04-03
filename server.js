@@ -94,6 +94,15 @@ function newDeck() {
         targ: { x: 0, y: 0 },
         resolve_dl: 0,
       });
+      deck.push({
+        suit: CHIP_DENOMS[i],
+        rank: CHIP_NUMBER[j],
+        x: 0,
+        y: 0,
+        z: 0,
+        targ: { x: 0, y: 0 },
+        resolve_dl: 0,
+      });
     }
   }
   function makeId(card) {
@@ -111,15 +120,21 @@ function isChip(c) {
 }
 
 function shuffleDeck(deck, isFirstShuffle = false) {
-  const cards = deck.filter(c => !isChip(c));
+  const cards = deck.filter((c) => !isChip(c));
   const chips = deck.filter(isChip);
   deck = arrShuffle(cards);
   if (isFirstShuffle) {
     deck.push(...chips);
     for (var i = 0; i < deck.length; i++) {
-      deck[i].x = WIDTH / 2 + 10 + CARD_HEIGHT / 2 + i * 1;
-      deck[i].y = HEIGHT / 2 - i * 1;
-      deck[i].z = i;
+      if (isChip(deck[i])) {
+        deck[i].x = WIDTH / 2 + CARD_HEIGHT / 2 + i * 1 - 40;
+        deck[i].y = HEIGHT / 2 - i * 1 + 200;
+        deck[i].z = i;
+      } else {
+        deck[i].x = WIDTH / 2 + 10 + CARD_HEIGHT / 2 + i * 1;
+        deck[i].y = HEIGHT / 2 - i * 1;
+        deck[i].z = i;
+      }
     }
   } else {
     for (var i = 0; i < cards.length; i++) {
