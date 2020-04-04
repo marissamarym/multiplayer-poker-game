@@ -9,6 +9,7 @@ var SYMBOLS = {
   five: '5',
   ten: '10',
   twentyfive: '25',
+  zero: 'D',
 };
 var COLORS = {
   diamond: 'red',
@@ -19,16 +20,18 @@ var COLORS = {
   five: '#770000',
   ten: '#013220',
   twentyfive: 'black',
+  zero: '#00008b',
 };
 var CHIP_FONT_COLORS = {
   one: 'black',
   five: 'white',
   ten: 'white',
   twentyfive: 'white',
+  zero: 'white',
 };
-var CHIP_DENOMS = ['one', 'five', 'ten', 'twentyfive'];
+var CHIP_DENOMS = ['one', 'five', 'ten', 'twentyfive', 'zero'];
 var CHIP_NUMBER = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-var CHIP_AMOUNT_MAP = { one: 1, five: 5, ten: 10, twentyfive: 25 };
+var CHIP_AMOUNT_MAP = { one: 1, five: 5, ten: 10, twentyfive: 25, zero: 0 };
 var cards = [];
 var CARD_WIDTH = 50;
 var CARD_HEIGHT = 70;
@@ -164,9 +167,9 @@ function renderCards() {
         elt.innerHTML = '<font color=' + cards[i].suit + '>JK<br>ER</font>';
       }
 
-      var closure = function() {
+      var closure = function () {
         var closure_id = cards[i].id;
-        var onmousedown = function(event) {
+        var onmousedown = function (event) {
           mouseDownInfo.cardId = closure_id;
           mouseDownInfo.t = new Date().getTime();
         };
@@ -226,12 +229,10 @@ function renderCards() {
     sx = -1000,
     sy = -1000;
   if (mouseDownInfo.state == 'multiselect') {
-    const cardLength = mouseSel.cards.filter(c => !isChip(c)).length;
+    const cardLength = mouseSel.cards.filter((c) => !isChip(c)).length;
     const chips = mouseSel.cards.filter(isChip);
     var chipAmount = 0;
-    chips.forEach(c => (chipAmount += CHIP_AMOUNT_MAP[c.suit]));
-    console.log('chips', chips);
-    console.log('chips', chips);
+    chips.forEach((c) => (chipAmount += CHIP_AMOUNT_MAP[c.suit]));
     if (cardLength > 0 && chipAmount > 0) {
       selbox.innerHTML = cardLength + ' cards • ' + chipAmount + ' chips';
     } else if (chipAmount > 0) {
@@ -304,7 +305,7 @@ function cardResolve(ncards) {
 }
 
 function cardMain(commitCallback) {
-  var commit = function() {
+  var commit = function () {
     var targs = [];
     for (var i = 0; i < mouseSel.cards.length; i++) {
       var cd = mouseSel.cards[i];
@@ -316,7 +317,7 @@ function cardMain(commitCallback) {
 
   var desk = document.getElementById('desk');
 
-  var onmousedown = function(clientX, clientY) {
+  var onmousedown = function (clientX, clientY) {
     mouseX = clientX - desk.getBoundingClientRect().left - window.pageXOffset;
     mouseY = clientY - desk.getBoundingClientRect().top - window.pageYOffset;
     var t = new Date().getTime();
@@ -343,7 +344,7 @@ function cardMain(commitCallback) {
     }
     //console.log(x+", "+y);
   };
-  var handhold = function() {
+  var handhold = function () {
     var txy = screen2desk({ x: mouseX, y: mouseY });
     var area = undefined;
     var aw = 500;
@@ -382,7 +383,7 @@ function cardMain(commitCallback) {
       );
     }
   };
-  var onmousemove = function(clientX, clientY) {
+  var onmousemove = function (clientX, clientY) {
     mouseX = clientX - desk.getBoundingClientRect().left - window.pageXOffset;
     mouseY = clientY - desk.getBoundingClientRect().top - window.pageYOffset;
     if (mouseDownInfo.state == 'multiselect') {
@@ -415,7 +416,7 @@ function cardMain(commitCallback) {
       }
     }
   };
-  var onmouseup = function() {
+  var onmouseup = function () {
     if (mouseDownInfo.state == 'single') {
       commit();
       mouseSel.cards = [];
@@ -431,24 +432,24 @@ function cardMain(commitCallback) {
       }
     }
   };
-  desk.onmousedown = function(event) {
+  desk.onmousedown = function (event) {
     onmousedown(event.clientX, event.clientY);
   };
-  desk.onmousemove = function(event) {
+  desk.onmousemove = function (event) {
     onmousemove(event.clientX, event.clientY);
   };
-  desk.onmouseup = function(event) {
+  desk.onmouseup = function (event) {
     onmouseup(event.clientX, event.clientY);
   };
-  desk.ontouchstart = function(event) {
+  desk.ontouchstart = function (event) {
     onmousedown(event.touches[0].pageX, event.touches[0].pageY);
     event.preventDefault();
   };
-  desk.ontouchmove = function(event) {
+  desk.ontouchmove = function (event) {
     onmousemove(event.touches[0].pageX, event.touches[0].pageY);
     event.preventDefault();
   };
-  desk.ontouchend = function(event) {
+  desk.ontouchend = function (event) {
     onmouseup();
     event.preventDefault();
   };

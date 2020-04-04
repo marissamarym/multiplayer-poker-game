@@ -46,16 +46,8 @@ var RANK = [
   'K',
   'C',
 ];
-var SYMBOLS = { diamond: '♦', club: '♣', heart: '♥', spade: '♠' };
-var COLORS = { diamond: 'red', club: 'black', heart: 'red', spade: 'black' };
-var CHIP_DENOMS = ['one', 'five', 'ten', 'twentyfive'];
+var CHIP_DENOMS = ['one', 'five', 'ten', 'twentyfive', 'zero'];
 var CHIP_NUMBER = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-var CHIP_COLORS = {
-  one: 'white',
-  five: 'red',
-  ten: 'green',
-  twentyfive: 'black',
-};
 var cards = [];
 var CARD_WIDTH = 50;
 var CARD_HEIGHT = 70;
@@ -70,6 +62,8 @@ function randId() {
 
 function newDeck() {
   var deck = [];
+
+  // Cards
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 13; j++) {
       deck.push({
@@ -83,6 +77,8 @@ function newDeck() {
       });
     }
   }
+
+  // Chips
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 10; j++) {
       deck.push({
@@ -105,6 +101,16 @@ function newDeck() {
       });
     }
   }
+  // Dealer chip
+  deck.push({
+    suit: CHIP_DENOMS[4],
+    rank: CHIP_NUMBER[0],
+    x: 0,
+    y: 0,
+    z: 0,
+    targ: { x: 0, y: 0 },
+    resolve_dl: 0,
+  });
   function makeId(card) {
     return card.suit + '-' + card.rank + '-' + randId();
   }
@@ -127,19 +133,23 @@ function shuffleDeck(deck, isFirstShuffle = false) {
     deck.push(...chips);
     for (var i = 0; i < deck.length; i++) {
       if (isChip(deck[i])) {
-        deck[i].x = WIDTH / 2 + CARD_HEIGHT / 2 + i * 1 - 40;
-        deck[i].y = HEIGHT / 2 - i * 1 + 200;
+        const denomPosition = CHIP_DENOMS.findIndex(
+          (item) => item === deck[i].suit
+        );
+        deck[i].x =
+          WIDTH / 2 + CARD_HEIGHT / 2 - 20 + -40 * denomPosition + 200;
+        deck[i].y = HEIGHT / 2 + 80;
         deck[i].z = i;
       } else {
-        deck[i].x = WIDTH / 2 + 10 + CARD_HEIGHT / 2 + i * 1;
-        deck[i].y = HEIGHT / 2 - i * 1;
+        deck[i].x = WIDTH / 2 + 10 + CARD_HEIGHT / 2 + i;
+        deck[i].y = HEIGHT / 2 - i;
         deck[i].z = i;
       }
     }
   } else {
     for (var i = 0; i < cards.length; i++) {
-      deck[i].x = WIDTH / 2 + 10 + CARD_HEIGHT / 2 + i * 1;
-      deck[i].y = HEIGHT / 2 - i * 1;
+      deck[i].x = WIDTH / 2 + 10 + CARD_HEIGHT / 2 + i;
+      deck[i].y = HEIGHT / 2 - i;
       deck[i].z = i;
     }
     deck.push(...chips);
